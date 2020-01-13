@@ -1,49 +1,60 @@
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import Link from "next/link";
 import Router from "next/router";
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1
+  },
+  menuButton: {
+    marginRight: theme.spacing(2)
+  },
+  title: {
+    flexGrow: 1
+  }
+}));
+
 export default function Layout({ children, title, backButton }) {
+  const classes = useStyles();
   return (
-    <div>
-      <div className="container">
-        <nav>
+    <div className="container">
+      <AppBar>
+        <Toolbar>
           {backButton && (
-            <span onClick={() => Router.back()} className="back-button">
-              &#x2b05;
-            </span>
+            <div>
+              <IconButton
+                edge="start"
+                className={classes.menuButton}
+                color="inherit"
+                aria-label="menu"
+                onClick={() => Router.back()}
+              >
+                <ArrowBackIcon />
+              </IconButton>
+            </div>
           )}
-          <Link href="/">
-            <a>
-              <span className="main-title">Hacker Next</span>
-            </a>
-          </Link>
-        </nav>
-        {children}
-      </div>
+
+          <Typography variant="h6" className={classes.title}>
+            Hacker Next
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <div>{children}</div>
       <style jsx>
         {`
           .container {
             max-width: 800px;
             margin: 0 auto;
-            background: #f6f6ef;
-          }
-          nav {
-            background: #f60;
-            padding: 1em;
-          }
-          nav > * {
-            display: inline-block;
-            color: black;
-          }
-          nav a {
-            text-decoration: none;
-          }
-          nav .main-title {
-            font-weight: bold;
-          }
-          nav .back-button {
-            font-size: 0.9rem;
-            padding-right: 1em;
-            cursor: pointer;
+            background: floralwhite;
+            top: 60px;
+            position: absolute;
           }
         `}
       </style>
