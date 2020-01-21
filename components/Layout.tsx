@@ -3,10 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import Link from "next/link";
 import Router from "next/router";
 
 const useStyles = makeStyles(theme => ({
@@ -21,7 +19,13 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Layout({ children, title, backButton }) {
+export default function Layout({
+  children,
+  backButton
+}: {
+  children: any;
+  backButton: any;
+}) {
   const classes = useStyles();
   return (
     <div className="container">

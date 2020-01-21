@@ -1,22 +1,34 @@
-import fetch from "isomorphic-fetch";
-import Error from "next/error";
 import Layout from "../components/Layout";
 import CommentList from "../components/CommentList";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function Story() {
-  const [story, setStory] = useState({});
+  const [story, setStory] = useState({
+    title: null,
+    url: "",
+    points: null,
+    comments_count: 0,
+    time_ago: null,
+    comments: null
+  });
   const fetchData = async () => {
     const urlParams = new URLSearchParams(window.location.search);
-    const result = await axios(
-      `https://node-hnapi.herokuapp.com/item/${urlParams.get("id")}`
-    )
+    await axios(`https://node-hnapi.herokuapp.com/item/${urlParams.get("id")}`)
       .then(response => {
         setStory(response.data);
       })
       .catch(function(error) {
-        setStory({});
+        console.log(error);
+
+        setStory({
+          title: null,
+          url: "",
+          points: null,
+          comments_count: 0,
+          time_ago: null,
+          comments: null
+        });
       });
   };
   useEffect(() => {
@@ -24,7 +36,7 @@ export default function Story() {
   }, []);
 
   return (
-    <Layout title={story.title} backButton={true}>
+    <Layout backButton={true}>
       <main>
         <h1 className="story-title">
           <a href={story.url}>{story.title}</a>

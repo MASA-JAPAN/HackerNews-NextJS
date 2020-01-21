@@ -1,9 +1,9 @@
 import Link from "next/link";
 
-export default function StoryList({ stories }) {
+export default function StoryList({ stories }: { stories: any }) {
   return (
     <div className="story-list">
-      {stories.map(story => (
+      {stories.map((story: any) => (
         <div className="story" key={story.id}>
           <h2 className="story-title">
             <a href={story.url}>{story.title}</a>

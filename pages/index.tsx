@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
-import fetch from "isomorphic-fetch";
 import axios from "axios";
 import Error from "next/error";
 import StoryList from "../components/StoryList";
 import Layout from "../components/Layout";
-import Link from "next/link";
-import { useQueryParam, NumberParam, StringParam } from "use-query-params";
 
 export default function Index() {
   const [stories, setStories] = useState([{}]);
@@ -15,15 +12,14 @@ export default function Index() {
     fetchData(1);
   }, []);
 
-  const fetchData = async pageNumber => {
-    const result = await axios(
-      `https://node-hnapi.herokuapp.com/news?page=${pageNumber}`
-    )
-      .then(response => {
+  const fetchData = async (pageNumber: any) => {
+    await axios(`https://node-hnapi.herokuapp.com/news?page=${pageNumber}`)
+      .then((response: any) => {
         setStories(response.data);
       })
-      .catch(function(error) {
-        setStories({});
+      .catch(function(error: any) {
+        setStories([]);
+        console.log(error);
       });
   };
 
@@ -36,7 +32,7 @@ export default function Index() {
   return (
     <div>
       {stories.length > 0 && (
-        <Layout>
+        <Layout backButton={null}>
           <StoryList stories={stories} />
           <footer>
             <button onClick={handleClick}>Click here</button>

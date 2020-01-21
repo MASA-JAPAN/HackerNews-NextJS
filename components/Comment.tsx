@@ -1,4 +1,4 @@
-export default function Comment({ comment }) {
+export default function Comment({ comment }: { comment: any }) {
   return (
     <div className="comment">
       <div className="comment-user">{comment.user}</div>
@@ -8,7 +8,7 @@ export default function Comment({ comment }) {
       />
       {comment.comments && (
         <div className="nested-comments">
-          {comment.comments.map(nestedComment => (
+          {comment.comments.map((nestedComment: any) => (
             <Comment key={nestedComment.id} comment={nestedComment} />
           ))}
         </div>
